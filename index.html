@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <title>Frontend Mentor | Intro section with dropdown navigation</title>
+</head>
+
+<body>
+  <h1 class="sr-only">Intro section with dropdown navigation</h1>
+  <header class="header">
+    <a href="." class="header__logo-link" aria-label="homepage">
+      <img class="header__logo-image" src="./images/logo.svg" alt="">
+    </a>
+    <div class="header__overlay"></div>
+    <nav class="header__nav header__nav--hidden" id="menu">
+      <button class="header__nav-close" aria-label="menu close">
+        <img src="./images/icon-close-menu.svg" alt="">
+      </button>
+      <ul class="header__menu">
+        <li class="header__menu-item">
+          <button class="header__menu-trigger header__menu-trigger--open" aria-expanded="false"
+            aria-controls="features-submenu">Features</button>
+          <ul class="header__submenu header__submenu--hidden" id="features-submenu" role="menu">
+            <li class="header__submenu-item" role="menuitem">
+              <img class="header__submenu-icon" src="./images/icon-todo.svg" alt="">
+              <a href="#" class="header__submenu-link">Todo List</a>
+            </li>
+            <li class="header__submenu-item" role="menuitem">
+              <img class="header__submenu-icon" src="./images/icon-calendar.svg" alt="">
+              <a href="#" class="header__submenu-link">Calendar</a>
+            </li>
+            <li class="header__submenu-item" role="menuitem">
+              <img class="header__submenu-icon" src="./images/icon-reminders.svg" alt="">
+              <a href="#" class="header__submenu-link">Reminders</a>
+            </li>
+            <li class="header__submenu-item" role="menuitem">
+              <img class="header__submenu-icon" src="./images/icon-planning.svg" alt="">
+              <a href="#" class="header__submenu-link">Planning</a>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <button class="header__menu-trigger" aria-expanded="false" aria-controls="company-submenu">Company</button>
+          <ul class="header__submenu header__submenu--hidden" id="company-submenu" role="menu">
+            <li class="header__submenu-item" role="menuitem">
+              <a href="" class="header__submenu-link">History</a>
+            </li>
+            <li class="header__submenu-item" role="menuitem">
+              <a href="" class="header__submenu-link">Our Team</a>
+            </li>
+            <li class="header__submenu-item" role="menuitem">
+              <a href="" class="header__submenu-link">Blog</a>
+            </li>
+          </ul>
+        </li>
+        <li class="header__menu-item">
+          <a class="header__menu-link" href="#">Careers</a>
+        </li>
+        <li class="header__menu-item">
+          <a class="header__menu-link" href="#">About</a>
+        </li>
+      </ul>
+      <ul class="header__auth">
+        <li class="header__auth-item header__auth-login">
+          <a class="header__auth-link" href="#">Login</a>
+        </li>
+        <li class="header__auth-item header__auth-register">
+          <a class="header__auth-link" href="#">Register</a>
+        </li>
+      </ul>
+    </nav>
+    <button class="header__menu-open" aria-label="open menu" aria-expanded="false" aria-controls="menu">
+      <img src="./images/icon-menu.svg" alt="">
+    </button>
+  </header>
+  <main class="hero">
+    <div class="hero__container">
+      <picture class="hero__image">
+        <source media="(min-width: 820px)" srcset="./images/image-hero-desktop.png">
+        <img class="hero__image-mobile" src="./images/image-hero-mobile.png" alt="a person using a laptop">
+      </picture>
+      <div class="hero__wrapper">
+        <h2 class="hero__title"><span class="hero__title-line">Make</span> remote work</h2>
+        <p class="hero__text">Get your team in sync, no matter your location. Streamline processes, create team
+          rituals, and watch productivity soar.</p>
+        <a href="#" class="hero__button">Learn more</a>
+        <ul class="hero__client-list">
+          <li class="hero__client-item">
+            <a href="#" class="hero__client-link">
+              <img src="./images/client-databiz.svg" alt="databiz logo" class="hero__client-icon">
+            </a>
+          </li>
+          <li class="hero__client-item">
+            <a href="#" class="hero__client-link">
+              <img src="./images/client-audiophile.svg" alt="audiophile logo" class="hero__client-icon">
+            </a>
+          </li>
+          <li class="hero__client-item">
+            <a href="#" class="hero__client-link">
+              <img src="./images/client-meet.svg" alt="meet logo" class="hero__client-icon">
+            </a>
+          </li>
+          <li class="hero__client-item">
+            <a href="#" class="hero__client-link">
+              <img src="./images/client-maker.svg" alt="maker logo" class="hero__client-icon">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <footer class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="https://github.com/psudo-dev">psudo-dev</a>.
+  </footer>
+  <script type="module" src="/src/index.ts"></script>
+</body>
+
+</html>
