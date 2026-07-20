@@ -28,10 +28,9 @@
         <img src="./images/icon-close-menu.svg" alt="">
       </button>
       <ul class="header__menu">
-        <li class="header__menu-item">
-          <button class="header__menu-trigger header__menu-trigger--open" aria-expanded="false"
-            aria-controls="features-submenu">Features</button>
-          <ul class="header__submenu header__submenu--hidden" id="features-submenu" role="menu">
+        <li class="header__menu-item" id="features" data-click="close" data-hover="close">
+          <button class="header__menu-trigger" aria-expanded="false" aria-controls="features-submenu">Features</button>
+          <ul class="header__submenu" id="features-submenu" role="menu">
             <li class="header__submenu-item" role="menuitem">
               <img class="header__submenu-icon" src="./images/icon-todo.svg" alt="">
               <a href="#" class="header__submenu-link">Todo List</a>
@@ -50,9 +49,9 @@
             </li>
           </ul>
         </li>
-        <li class="header__menu-item">
+        <li class="header__menu-item" id="company" data-click="close" data-hover="close">
           <button class="header__menu-trigger" aria-expanded="false" aria-controls="company-submenu">Company</button>
-          <ul class="header__submenu header__submenu--hidden" id="company-submenu" role="menu">
+          <ul class="header__submenu" id="company-submenu" role="menu">
             <li class="header__submenu-item" role="menuitem">
               <a href="" class="header__submenu-link">History</a>
             </li>
