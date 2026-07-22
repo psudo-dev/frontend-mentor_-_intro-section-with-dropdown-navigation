@@ -518,6 +518,7 @@ button {
 	.hero__title {
 		font-size: clamp(3rem, -0.776rem + 7.368vw, 4.875rem);
 		padding-block-start: clamp(0rem, -10.789rem + 21.053vw, 4rem);
+		overflow-wrap: normal;
 	}
 
 	.hero__title-line {
