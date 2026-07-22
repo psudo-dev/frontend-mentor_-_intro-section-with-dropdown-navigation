@@ -10,8 +10,8 @@ I'm back to studying programming and I've started with the good old HTML and CSS
 
 ### Live Demo
 
-- [Live Demo](https://gentle-graph-flow.netlify.app)
-- [Frontend Mentor Solution](https://www.frontendmentor.io/solutions/expenses-chart-component-xOVA4K0rWH)
+- [Live Demo](https://mellow-code-wave.netlify.app)
+- [Frontend Mentor Solution](https://www.frontendmentor.io/solutions/intro-section-with-dropdown-navigation-9Lxu6GFZOB)
 
 ## Frontend Mentor
 
@@ -33,38 +33,24 @@ Your users should be able to:
 
 ## What I've Learned
 
-### Simulating a Real API
+### Splitting State Between TypeScript and CSS
 
-The project only ships with a `data.json` file containing the last 7 days of spending, but the design also called for a balance card and a monthly summary with a percentage change from the previous month — neither of which can be derived from that single file.
+The dropdown needed two independent triggers — click and hover — that could coexist without one interfering with the other (a click-opened dropdown shouldn't close just because the mouse left the area, and vice versa).
 
-Rather than hardcoding those values, I created two additional JSON files (`balance.json` and `monthlySummary.json`) to simulate separate API endpoints, each representing a distinct domain (account balance, monthly aggregation) the way a real backend likely would split them.
+Rather than letting CSS `:hover` drive visibility directly, I moved all state decisions into TypeScript, simulating hover with `mouseenter`/`mouseleave` listeners instead of relying on the `:hover` pseudo-class. Each menu item tracks its click and hover state independently via `data-click`/`data-hover` attributes on the element itself — this made the state persistent and readable from any function touching that element, without relying on closures or module-level variables that don't survive being passed around as primitives.
 
-This meant fetching from three endpoints instead of one, and calculating the month-over-month percentage change client-side from real data rather than displaying a static string.
+CSS's job was narrowed down to translating those states into appearance: `--open`/`--visible` modifier classes (toggled by TypeScript) paired with `transition` on the base state controlled the actual opening/closing animation, along with `position: absolute` for the desktop dropdown vs `position: fixed` for the full-screen mobile panel.
 
-### `DocumentFragment`, `<template>`, and `cloneNode()`
+One deliberate behavior: both "Features" and "Company" dropdowns can be open at once, rather than the more common mutually-exclusive pattern. On mobile, where users are actively navigating a stacked panel, I wanted every link reachable at once without one dropdown collapsing another. On desktop, that same simultaneity is only reachable through deliberate clicks — hover-driven opening still closes automatically the moment the cursor leaves, matching how people normally interact with desktop nav.
 
-My first working version generated each chart column by setting an inline `style.height` on existing `<li>` elements inside a `forEach` loop. It worked, but after digging into optimization with the help of AI, I learned this approach causes unnecessary reflows: each style mutation on an element already in the live DOM can trigger the browser to recalculate layout, and doing that seven times in a row (once per column) is wasteful compared to batching the work.
+### Accessibility Driven by the Same State
 
-The fix involved three tools I hadn't used together before:
-
-- **`<template>`**: holds inert, reusable HTML that the browser parses but never renders or executes — perfect for a markup "mold" you intend to stamp out multiple times.
-- **`cloneNode(true)`**: creates a fresh, independent copy of that template's content on each iteration, avoiding the cost of re-parsing an HTML string from scratch every time.
-- **`DocumentFragment`**: a lightweight container that lives outside the rendered DOM tree, letting me assemble all seven columns in memory first, and insert them into the page in a single `appendChild` call — so the browser recalculates layout once, not seven times.
-
-I still don't fully grasp every nuance of the browser's rendering pipeline, but understanding _why_ batching DOM writes matters, and having a concrete pattern for doing it, was a genuinely useful addition to my toolkit.
-
-### Accessibility and Semantic HTML
-
-The bar chart is visual by nature — a `<span>` with a computed height and a color doesn't mean anything to a screen reader on its own.
-
-To bridge that gap, each generated chart column pairs a visually-hidden `sr-only` element (containing something like `"Monday: $17.45"`) with `aria-hidden="true"` on the purely decorative day label and bar itself.
-
-This way, sighted users still see the bars and hover tooltips, while screen reader users get a clean, individually-navigable list of day/amount pairs — without needing `role="img"` or a single monolithic label that would collapse the whole chart into one unbreakable announcement.
+`aria-expanded` on each trigger button reflects the same open/closed state that drives the visual classes — updated in the same TypeScript functions that toggle `--open`/`--visible`, so the accessibility state can never drift out of sync with what's visually happening. `aria-controls` ties each trigger to its corresponding submenu by `id`.
 
 ### Architecture and Tooling
 
-- **TypeScript**: used throughout, including generic functions and runtime type predicates (`value is X`) to validate the shape of data coming from each simulated endpoint before trusting it.
-- **BEM (Block Element Modifier)**: applied consistently across the stylesheet for predictable, modular class naming.
+- **TypeScript**: all dropdown/menu logic centralized here — state stored on the DOM via `dataset`, closing-on-outside-click handled through a single delegated `document` listener using `.contains()`, and `window.matchMedia` used to gate hover behavior to desktop widths only.
+- **BEM (Block Element Modifier)**: applied consistently, including modifier classes (`--open`, `--visible`) reserved specifically for JS-driven state.
 
 ## Built With
 
