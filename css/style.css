@@ -4,25 +4,9 @@
 	--gray-500: hsl(0, 0%, 41%);
 	--gray-950: hsl(0, 0%, 8%);
 	--overlay: rgba(0, 0, 0, 0.75);
+	--box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 
 	--attribution: hsl(228, 45%, 44%);
-}
-
-.attribution {
-	font-size: 0.6875rem;
-	text-align: center;
-	align-self: end;
-}
-
-.attribution a {
-	color: var(--attribution);
-	text-decoration: underline;
-	text-underline-offset: 3px;
-}
-
-.attribution a:hover,
-.attribution a:focus {
-	text-decoration: none;
 }
 
 *,
@@ -115,6 +99,23 @@ button {
 		animation-duration: 0s !important;
 		scroll-behavior: auto !important;
 	}
+}
+
+.attribution {
+	font-size: 0.6875rem;
+	text-align: center;
+	align-self: end;
+}
+
+.attribution a {
+	color: var(--attribution);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.attribution a:hover,
+.attribution a:focus {
+	text-decoration: none;
 }
 
 .sr-only {
@@ -459,7 +460,7 @@ button {
 		padding: 1.25rem;
 		border-radius: 0.75rem;
 		grid-template-columns: max-content;
-		box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+		box-shadow: var(--box-shadow);
 		gap: 0rem;
 		transition:
 			opacity 0.3s ease,

@@ -17,19 +17,19 @@
 </head>
 
 <body>
-  <h1 class="sr-only">Intro section with dropdown navigation</h1>
   <header class="header">
     <a href="." class="header__logo-link" aria-label="homepage">
       <img class="header__logo-image" src="./images/logo.svg" alt="">
     </a>
     <div class="header__overlay"></div>
     <nav class="header__nav header__nav--hidden" id="menu">
-      <button class="header__nav-close" aria-label="close menu">
+      <button class="header__nav-close" aria-label="close menu" type="button">
         <img src="./images/icon-close-menu.svg" alt="">
       </button>
       <ul class="header__menu">
         <li class="header__menu-item" id="features" data-click="close" data-hover="close">
-          <button class="header__menu-trigger" aria-expanded="false" aria-controls="features-submenu">Features</button>
+          <button class="header__menu-trigger" aria-expanded="false" aria-controls="features-submenu"
+            type="button">Features</button>
           <ul class="header__submenu" id="features-submenu">
             <li class="header__submenu-item">
               <span class="header__submenu-icon-wrapper"><img class="header__submenu-icon" src="./images/icon-todo.svg"
@@ -54,7 +54,8 @@
           </ul>
         </li>
         <li class="header__menu-item" id="company" data-click="close" data-hover="close">
-          <button class="header__menu-trigger" aria-expanded="false" aria-controls="company-submenu">Company</button>
+          <button class="header__menu-trigger" aria-expanded="false" aria-controls="company-submenu"
+            type="button">Company</button>
           <ul class="header__submenu" id="company-submenu">
             <li class="header__submenu-item">
               <a href="#" class="header__submenu-link">History</a>
@@ -83,11 +84,12 @@
         </li>
       </ul>
     </nav>
-    <button class="header__menu-open" aria-label="open menu" aria-expanded="false" aria-controls="menu">
+    <button class="header__menu-open" aria-label="open menu" aria-expanded="false" aria-controls="menu" type="button">
       <img src="./images/icon-menu.svg" alt="">
     </button>
   </header>
   <main class="hero">
+    <h1 class="sr-only">Intro section with dropdown navigation</h1>
     <div class="hero__container">
       <picture class="hero__image">
         <source media="(min-width: 51.25em)" srcset="./images/image-hero-desktop.png">
