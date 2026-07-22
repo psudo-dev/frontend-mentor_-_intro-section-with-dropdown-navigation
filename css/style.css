@@ -492,7 +492,7 @@ button {
 		padding-inline: clamp(1rem, -3.02rem + 7.843vw, 2.5rem);
 		padding-block: 2rem;
 		margin-inline: auto;
-		gap: clamp(3rem, -7.789rem + 21.053vw, 4rem);
+		gap: clamp(3rem, -7.789rem + 21.053vw, 4.5rem);
 		max-width: 75rem;
 	}
 
@@ -516,7 +516,7 @@ button {
 	}
 
 	.hero__title {
-		font-size: clamp(3rem, -0.776rem + 7.368vw, 4.875rem);
+		font-size: clamp(3rem, -0.776rem + 7.368vw, 5rem);
 		padding-block-start: clamp(0rem, -10.789rem + 21.053vw, 4rem);
 		overflow-wrap: normal;
 	}
