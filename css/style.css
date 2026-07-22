@@ -492,7 +492,7 @@ button {
 		padding-inline: clamp(1rem, -3.02rem + 7.843vw, 2.5rem);
 		padding-block: 2rem;
 		margin-inline: auto;
-		gap: clamp(3rem, -7.789rem + 21.053vw, 4.5rem);
+		gap: clamp(3rem, -7.789rem + 21.053vw, 4rem);
 		max-width: 75rem;
 	}
 
