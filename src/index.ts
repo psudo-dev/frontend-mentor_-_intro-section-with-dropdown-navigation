@@ -9,9 +9,13 @@ const featuresSubmenu = document.querySelector("#features-submenu");
 const companyEl = document.querySelector("#company");
 const companySubmenu = document.querySelector("#company-submenu");
 
-function addSubmenu(menuItem: unknown, submenu: unknown, type: string) {
-	if (!(menuItem instanceof HTMLElement)) return;
-	if (!(submenu instanceof HTMLElement)) return;
+function addSubmenu(
+	menuItem: Element | null,
+	submenu: Element | null,
+	type: "click" | "hover",
+) {
+	if (!(menuItem instanceof HTMLElement) || !(submenu instanceof HTMLElement))
+		return;
 	const trigger = menuItem.querySelector(".header__menu-trigger");
 	if (!(trigger instanceof HTMLElement)) return;
 	trigger.classList.add("header__menu-trigger--open");
@@ -20,9 +24,13 @@ function addSubmenu(menuItem: unknown, submenu: unknown, type: string) {
 	menuItem.dataset[type] = "open";
 }
 
-function removeSubmenu(menuItem: unknown, submenu: unknown, type: string) {
-	if (!(menuItem instanceof HTMLElement)) return;
-	if (!(submenu instanceof HTMLElement)) return;
+function removeSubmenu(
+	menuItem: Element | null,
+	submenu: Element | null,
+	type: "click" | "hover",
+) {
+	if (!(menuItem instanceof HTMLElement) || !(submenu instanceof HTMLElement))
+		return;
 	const trigger = menuItem.querySelector(".header__menu-trigger");
 	if (!(trigger instanceof HTMLElement)) return;
 	trigger.classList.remove("header__menu-trigger--open");
@@ -31,9 +39,9 @@ function removeSubmenu(menuItem: unknown, submenu: unknown, type: string) {
 	menuItem.dataset[type] = "close";
 }
 
-function elListeners(menuItem: unknown, submenu: unknown) {
-	if (!(menuItem instanceof HTMLElement)) return;
-	if (!(submenu instanceof HTMLElement)) return;
+function dropdownListeners(menuItem: Element | null, submenu: Element | null) {
+	if (!(menuItem instanceof HTMLElement) || !(submenu instanceof HTMLElement))
+		return;
 
 	menuItem.addEventListener("click", () => {
 		if (menuItem.dataset.click === "close")
@@ -45,7 +53,7 @@ function elListeners(menuItem: unknown, submenu: unknown) {
 		if (
 			menuItem.dataset.hover === "close" &&
 			menuItem.dataset.click === "close" &&
-			window.matchMedia("(min-width: 820px)").matches
+			window.matchMedia("(min-width: 51.25em)").matches
 		)
 			addSubmenu(menuItem, submenu, "hover");
 	});
@@ -54,44 +62,76 @@ function elListeners(menuItem: unknown, submenu: unknown) {
 		if (
 			menuItem.dataset.hover === "open" &&
 			menuItem.dataset.click === "close" &&
-			window.matchMedia("(min-width: 820px)").matches
+			window.matchMedia("(min-width: 51.25em)").matches
 		)
 			removeSubmenu(menuItem, submenu, "hover");
 	});
 }
 
-menuOpen?.addEventListener("click", () => {
-	overlay?.classList.add("header__overlay--visible");
-	navbar?.classList.remove("header__nav--hidden");
-});
+function isHTMLElementArr(htmlArray: unknown): htmlArray is HTMLElement[] {
+	if (!Array.isArray(htmlArray)) return false;
+	return htmlArray.every((html) => html instanceof HTMLElement);
+}
 
-menuClose?.addEventListener("click", () => {
-	overlay?.classList.remove("header__overlay--visible");
-	navbar?.classList.add("header__nav--hidden");
-});
+function openMobileMenu(triggerEl: Element | null) {
+	if (
+		!(triggerEl instanceof HTMLElement) ||
+		!(overlay instanceof HTMLElement) ||
+		!(navbar instanceof HTMLElement)
+	)
+		return;
+	triggerEl.addEventListener("click", () => {
+		overlay.classList.add("header__overlay--visible");
+		navbar.classList.remove("header__nav--hidden");
+		triggerEl.setAttribute("aria-expanded", "true");
+	});
+}
 
-overlay?.addEventListener("click", () => {
-	overlay?.classList.remove("header__overlay--visible");
-	navbar?.classList.add("header__nav--hidden");
-});
+function closeMobileMenu(triggerEl: Element | null) {
+	if (
+		!(triggerEl instanceof HTMLElement) ||
+		!(overlay instanceof HTMLElement) ||
+		!(navbar instanceof HTMLElement) ||
+		!(menuOpen instanceof HTMLElement)
+	)
+		return;
+	triggerEl.addEventListener("click", () => {
+		overlay.classList.remove("header__overlay--visible");
+		navbar.classList.add("header__nav--hidden");
+		menuOpen.setAttribute("aria-expanded", "false");
+	});
+}
 
 document.addEventListener("click", (e) => {
-	if (!(e.target instanceof HTMLElement)) return;
-	if (!(featuresEl instanceof HTMLElement)) return;
-	if (!(companyEl instanceof HTMLElement)) return;
-	if (
-		!featuresSubmenu?.contains(e.target) &&
-		featuresEl.dataset.click === "open" &&
-		!featuresEl?.contains(e.target)
-	)
-		removeSubmenu(featuresEl, featuresSubmenu, "click");
-	else if (
-		!companySubmenu?.contains(e.target) &&
-		companyEl.dataset.click === "open" &&
-		!companyEl?.contains(e.target)
-	)
-		removeSubmenu(companyEl, companySubmenu, "click");
+	const target = e.target;
+	if (!(target instanceof HTMLElement)) return;
+
+	const dropdownMenus = [
+		[featuresEl, featuresSubmenu],
+		[companyEl, companySubmenu],
+	];
+
+	if (!dropdownMenus.every((dropdownMenu) => isHTMLElementArr(dropdownMenu)))
+		return;
+
+	const isOutsideDropdown = dropdownMenus.every(([menuItem, submenu]) => {
+		return !menuItem.contains(target) && !submenu.contains(target);
+	});
+
+	const isSubmenuLink = target.classList.contains("header__submenu-link");
+
+	dropdownMenus.forEach(([menuItem, submenu]) => {
+		if (
+			menuItem.dataset.click === "open" &&
+			(isOutsideDropdown || isSubmenuLink)
+		)
+			removeSubmenu(menuItem, submenu, "click");
+	});
 });
 
-elListeners(featuresEl, featuresSubmenu);
-elListeners(companyEl, companySubmenu);
+openMobileMenu(menuOpen);
+closeMobileMenu(menuClose);
+closeMobileMenu(overlay);
+
+dropdownListeners(featuresEl, featuresSubmenu);
+dropdownListeners(companyEl, companySubmenu);
