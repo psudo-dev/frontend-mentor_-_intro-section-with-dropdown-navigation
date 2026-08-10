@@ -2,7 +2,7 @@
 
 # Frontend Mentor - Intro section with dropdown navigation
 
-[![Frontend Mentor](https://img.shields.io/badge/JunioretHE5)
+[![Frontend Mentor](https://img.shields.io/badge/Junior-Intro%20section%20with%20Dropdown%20Navigation-2ec866?style=flat-square&logo=frontendmentor)](https://www.frontendmentor.io/challenges/intro-section-with-dropdown-navigation-ryaPetHE5)
 
 ## Overview
 
